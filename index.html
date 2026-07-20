@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#120d0b">
+  <meta name="description" content="الوريث الخامس — تجربة قراءة روائية تفاعلية بمؤثرات بيئية دون موسيقى.">
+  <title>الوريث الخامس</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/cover.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="night">
+  <div class="page-progress" id="pageProgress"></div>
+
+  <section id="landing" class="landing" aria-label="واجهة الرواية">
+    <div class="dust" aria-hidden="true"></div>
+    <div class="landing-inner">
+      <div class="cover-wrap">
+        <img src="assets/cover.png" alt="غلاف رواية الوريث الخامس" class="cover">
+        <div class="cover-glow"></div>
+      </div>
+      <div class="landing-copy">
+        <p class="eyebrow">تجربة قراءة روائية تفاعلية</p>
+        <h1>الوريث الخامس</h1>
+        <p class="subtitle">رواية تشويق تاريخي</p>
+        <blockquote>«الدم يدلّك على الطريق، لكنه لا يخبرك بمن ينتظرك في آخره.»</blockquote>
+        <p class="intro">خمسة أزمنة. علامة واحدة. وسلالة لم تعرف أن أحدًا كان ينتظر ظهور وريثها الأخير.</p>
+        <div class="landing-actions">
+          <button id="startReading" class="primary-btn">ابدأ القراءة</button>
+          <button id="resumeReading" class="ghost-btn" hidden>أكمل من حيث توقفت</button>
+        </div>
+        <div class="sound-note"><span>◌</span> المؤثرات أصوات بيئية فقط، بلا موسيقى، ويمكن إيقافها تمامًا.</div>
+      </div>
+    </div>
+    <button class="scroll-hint" id="discoverBtn" aria-label="اكتشف الفصول"><span></span>اكتشف الحكاية</button>
+  </section>
+
+  <main id="app" class="app" hidden>
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn" aria-label="فتح قائمة الفصول">☰</button>
+      <div class="top-title"><span>الوريث الخامس</span><small id="topChapter">الاستهلال</small></div>
+      <div class="top-actions">
+        <button id="soundBtn" class="icon-btn" aria-label="تشغيل أو إيقاف المؤثرات">◌</button>
+        <button id="settingsBtn" class="icon-btn" aria-label="إعدادات القراءة">Aa</button>
+      </div>
+    </header>
+
+    <aside id="drawer" class="drawer" aria-label="قائمة الفصول">
+      <div class="drawer-head">
+        <div><strong>الوريث الخامس</strong><small>الفصول والأزمنة</small></div>
+        <button id="closeDrawer" class="icon-btn" aria-label="إغلاق">×</button>
+      </div>
+      <label class="search-box"><span>⌕</span><input id="chapterSearch" type="search" placeholder="ابحث عن فصل أو زمن"></label>
+      <nav id="chapterList" class="chapter-list"></nav>
+      <div class="drawer-foot">يُحفظ تقدم القراءة على جهازك تلقائيًا.</div>
+    </aside>
+    <div id="drawerBackdrop" class="backdrop"></div>
+
+    <aside id="settings" class="settings-panel" aria-label="إعدادات القراءة">
+      <div class="settings-head"><strong>إعدادات القراءة</strong><button id="closeSettings" class="icon-btn">×</button></div>
+      <div class="setting-group">
+        <span>حجم الخط</span>
+        <div class="segmented"><button data-font="small">صغير</button><button data-font="medium" class="active">متوسط</button><button data-font="large">كبير</button></div>
+      </div>
+      <div class="setting-group">
+        <span>وضع القراءة</span>
+        <div class="segmented"><button data-reading-theme="night" class="active">ليلي</button><button data-reading-theme="paper">ورقي</button></div>
+      </div>
+      <div class="setting-group">
+        <span>المؤثرات البيئية</span>
+        <div class="sound-grid">
+          <button data-sfx="wind">رياح</button><button data-sfx="stone">حجر</button><button data-sfx="steps">خطوات</button><button data-sfx="paper">ورق</button><button data-sfx="camera">كاميرا</button><button data-sfx="water">ماء</button>
+        </div>
+        <small>لا يحتوي الموقع على موسيقى.</small>
+      </div>
+      <button id="resetProgress" class="danger-link">مسح تقدّم القراءة</button>
+    </aside>
+
+    <section class="reader-shell">
+      <div id="sceneHero" class="scene-hero theme-modern">
+        <div class="scene-noise"></div>
+        <div class="scene-symbol" id="sceneSymbol">◉</div>
+        <div class="scene-meta"><span id="sceneEra">الحاضر</span><span id="scenePlace">القاهرة والأقصر</span></div>
+        <h2 id="sceneTitle">الاستهلال</h2>
+        <p id="sceneLead"></p>
+        <button id="sceneSound" class="scene-sound">تشغيل أجواء الفصل <span>◌</span></button>
+      </div>
+
+      <article class="reader" id="reader">
+        <div class="chapter-kicker" id="chapterSection"></div>
+        <h1 id="chapterTitle"></h1>
+        <div class="chapter-details"><span id="chapterEra"></span><span id="chapterTime"></span><span id="chapterWords"></span></div>
+        <div id="chapterBody" class="chapter-body"></div>
+        <div class="chapter-end"><span></span><strong>نهاية الفصل</strong><span></span></div>
+        <nav class="chapter-nav">
+          <button id="prevChapter" class="nav-card"><small>الفصل السابق</small><strong></strong></button>
+          <button id="nextChapter" class="nav-card"><small>الفصل التالي</small><strong></strong></button>
+        </nav>
+      </article>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="data/novel.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
